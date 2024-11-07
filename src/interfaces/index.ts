@@ -1,5 +1,5 @@
 export interface IProductsList{
-    id?:string|undefined;
+    id:number;
     title: string;
     url: string;
     desc: string;
@@ -8,9 +8,9 @@ export interface IProductsList{
         name: "sandwiches" | "appetizers";
     }
 }
-export interface IForm{
-    id:string,
-    name:string,
+export interface IForm {
+    id: string,
+    name: 'title' | 'url' | "desc" | 'price',
     label: string,
     type:string
 }

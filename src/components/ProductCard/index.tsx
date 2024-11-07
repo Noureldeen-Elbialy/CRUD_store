@@ -8,7 +8,7 @@ import './index.scss'
 const ProductCard = ({ product }: IProps) => {
     const { title,desc,price,url,category} = product;
     return (<>
-        <div className="productCard m-auto max-w-80 md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl cursor-pointer flex flex-col justify-between hover:-translate-y-2 transition-all duration-1000 ease-in-out h-full">
+        <div className="productCard  max-w-80 md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl cursor-pointer flex flex-col justify-between hover:-translate-y-2 transition-all duration-1000 ease-in-out h-full m-auto">
             <div className="image -translate-x-16 translate-y-16 md:-translate-x-10 xl:-translate-x-14">
                 <ProductImage imagePath={url} alternate={title} styles='w-3/5 m-auto'/>
             </div>
