@@ -15,7 +15,7 @@ const ProductCard = ({ product }: IProps) => {
             <div className="content bg-gray-100 h-full shadow-sm p-2 rounded-md flex flex-col justify-between">
                 <div className="title">
                     <h2 className="font-extrabold mb-5 mt-10 text-md">{ title.toUpperCase()}</h2>
-                    <p className="my-3 text-zinc-400 p-product text-sm font-semibold">{desc.split(' ').slice(0,10).join(' ').toUpperCase()}. . .</p>
+                    <p className="my-3 break-words text-zinc-400 p-product text-xs font-semibold">{desc.split(' ').slice(0,10).join(' ').toUpperCase()}. . .</p>
                 </div>
                 <div className="colors flex space-x-1 my-3">
                     <div className="w-5 cursor-pointer h-5 rounded-full bg-red-400"></div>

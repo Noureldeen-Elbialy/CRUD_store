@@ -1,4 +1,4 @@
-import { IProductsList } from "../interfaces";
+import { IForm, IProductsList } from "../interfaces";
 
 export const productsList:IProductsList[] = [
     {
@@ -75,3 +75,31 @@ export const productsList:IProductsList[] = [
         price:"169"
     }
 ];
+
+
+export const AddInputsList:IForm[] = [
+    {
+        id:"title",
+        name:"title",
+        label: "Product Title",
+        type: "text"
+    },
+    {
+        id:"desc",
+        name:"desc",
+        label: "Product Description",
+        type: "text"
+    },
+    {
+        id:"imageUrl",
+        name:"imageUrl",
+        label: "Product Image",
+        type: "text"
+    },
+    {
+        id:"price",
+        name:"price",
+        label: "Product Price",
+        type: "text"
+    }
+]

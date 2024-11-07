@@ -8,3 +8,9 @@ export interface IProductsList{
         name: "sandwiches" | "appetizers";
     }
 }
+export interface IForm{
+    id:string,
+    name:string,
+    label: string,
+    type:string
+}
