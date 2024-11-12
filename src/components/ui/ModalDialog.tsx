@@ -21,7 +21,7 @@ const ModalDialog = ({ title,isOpen,close,children}: IProps) => {
                                 {title}
                             </DialogTitle>
                             <div className="mt-4">
-                                    {children}
+                                {children}
                             </div>
                         </DialogPanel>
                     </div>

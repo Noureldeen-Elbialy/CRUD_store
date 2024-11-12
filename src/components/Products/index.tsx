@@ -1,12 +1,14 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { AddInputsList, productsList } from "../../data";
+import { AddInputsList, colors, productsList } from "../../data";
 import ProductCard from "../ProductCard";
 import Button from "../ui/Button";
 import ModalDialog from "../ui/ModalDialog";
 import Input from "../ui/Input";
 import { productValidition } from "../validition";
 import Error from "../Error";
-
+import Colors from "../Colors";
+import { v4 as uuid } from "uuid";
+import { IProductsList } from "../../interfaces";
 const Products = () => {
 
     //________________ STATE_______________
@@ -16,7 +18,10 @@ const Products = () => {
         url: '',
         price: ''
     };
+
     const [isOpen, setIsOpen] = useState(false);
+    
+    const [products, setProducts] = useState<IProductsList[]>(productsList);
     const [product, setProduct] = useState(defaultProduct);
 
     const [error, setError] = useState({
@@ -26,7 +31,9 @@ const Products = () => {
         price: ''
     });
 
-
+    const [tempColor, setTempColor] = useState<string[]>([]);
+    console.log(tempColor);
+    
     //_______HANDELERS_______
     const open = () => { setIsOpen(true) };
     
@@ -49,36 +56,49 @@ const Products = () => {
         close();
     }
     
-    const onSubmitHandler = (e:FormEvent<HTMLFormElement>) => {
+    const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const {title,desc,price,url}=product;
+        const { title, desc, price, url } = product;
         const error = productValidition({
             title,
             desc,
             price,
             url
         });
-        console.log(error);
+
         const hasErrorMsg = Object.values(error).some(value => value === '') && Object.values(error).every(value => value === '');
         console.log(hasErrorMsg);
         if (!hasErrorMsg) {
             setError(error);
             return;
-        } else {
-            console.log('submit');
         }
+        setProducts(prev => [{ ...product, id: uuid(), colors: tempColor },...prev]);
+        setProduct(defaultProduct);
+        setTempColor([]);
+        close();
+        console.log(products);
+        console.log('submit');
     }
 
     //______________renders _______________
-    const renderProductList = productsList.map(product => <ProductCard key={product.id} product={product} />);
+    const renderProductList = products.map(product => <ProductCard key={product.id} product={product} />);
 
     const renderAddInputsList = AddInputsList.map((input) => {
-        return<div key={input.id} className="flex-col flex">
+        return <div key={input.id} className="flex-col flex">
             <label htmlFor={input.id}>{input.label}</label>
             <Input type={input.type} name={input.name} id={input.id} value={product[input.name]} onChange={onChangeHandler} />
             <Error msg={error[input.name]} />
         </div>
-    })
+    });
+
+
+    const renderColors = colors.map(color => <Colors color={color} key={color} onClick={() => {
+        if (tempColor.includes(color)) {
+            setTempColor(prev => prev.filter((item) => item !== color));
+            return
+        }
+        setTempColor(prev=>[...prev,color]);
+    }} />);
 
 
 
@@ -93,6 +113,15 @@ const Products = () => {
                 <ModalDialog close={close} isOpen={isOpen} title="ADD A NEW PRODUCT">
                     <form onSubmit={onSubmitHandler} className="form-inputs flex flex-col space-y-3">
                         {renderAddInputsList}
+                        <div className="flex flex-wrap justify-evenly">
+                            {renderColors}
+                        </div>
+
+                        <div className="flex flex-wrap justify-evenly">
+                            {tempColor.map((color) => {
+                                return <span key={color} className="text-white px-1 rounded-md mb-1" style={{backgroundColor:color}}>{ color}</span>
+                            })}
+                        </div>
                         <div className="flex space-x-3">
                             <Button width="w-full" className="bg-indigo-400 py-1  hover:bg-indigo-500 rounded-lg">Submite</Button>
                             <Button onClick={cancelHandler} width="w-full" className="bg-gray-400 py-1 hover:bg-gray-500 rounded-lg">Cancel</Button>

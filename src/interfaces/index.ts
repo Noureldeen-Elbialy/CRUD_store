@@ -1,12 +1,10 @@
 export interface IProductsList{
-    id:number;
+    id?:string;
     title: string;
     url: string;
     desc: string;
     price: string;
-    category: {
-        name: "sandwiches" | "appetizers";
-    }
+    colors:string[]
 }
 export interface IForm {
     id: string,
